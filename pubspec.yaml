@@ -51,8 +51,13 @@ fonts:
     - asset: assets/fonts/Oxygen-Bold.ttf
  
 
-  assets:
-    - assets/images
+assets:
+   - assets/images/athens.jpg
+   - assets/images/lasvegas.jpg
+   - assets/images/sydney.jpeg
+
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
