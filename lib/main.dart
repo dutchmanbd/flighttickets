@@ -1,5 +1,6 @@
 import 'package:flighttickets/CustomAppBar.dart';
 import 'package:flighttickets/CustomShapeClipper.dart';
+import 'package:flighttickets/flight_list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +15,7 @@ void main() => runApp(
 
 var firstColor = Color(0xFFF47D15);
 var secondColor = Color(0xFFEF772C);
+var clipLinearGradient = LinearGradient(colors: [firstColor, secondColor]);
 
 var appTheme = ThemeData(primaryColor: Color(0xFFF3791A), fontFamily: 'Oxygen');
 
@@ -33,6 +35,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             HomeScreenTopPart(),
             homeScreenBottomPart,
+            homeScreenBottomPart
           ],
         ),
       ),
@@ -58,7 +61,7 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
           child: Container(
             height: 400.0,
             decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [firstColor, secondColor])),
+                gradient: clipLinearGradient),
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -138,9 +141,16 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
                             elevation: 2.0,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30.0)),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.black,
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => FlightListing()
+                                ));
+                              },
+                              child: Icon(
+                                Icons.search,
+                                color: Colors.black,
+                              ),
                             ),
                           )),
                       style: dropDownMenuItemStyle,
