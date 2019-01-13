@@ -6,7 +6,20 @@ var discountBackgroundColor = Color(0xFFFFE08D);
 var flightBorderColor = Color(0xFFE6E6E6);
 var chipBackgroundColor = Color(0xFFF6F6F6);
 
+class InheritedFlightListing extends InheritedWidget{
+  final String fromLocation, toLocation;
+  InheritedFlightListing({this.fromLocation, this.toLocation, Widget child}): super(child: child);
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) => true;
+
+  static InheritedFlightListing of(BuildContext context) =>
+    context.inheritFromWidgetOfExactType(InheritedFlightListing);
+
+}
+
 class FlightListing extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +51,7 @@ class FlightListing extends StatelessWidget {
 }
 
 class FlightListTopPart extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -70,12 +84,12 @@ class FlightListTopPart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Boston (BOS)",
+                          Text(InheritedFlightListing.of(context).fromLocation,
                               style: TextStyle(fontSize: 16.0)),
                           Divider(
                             color: Colors.grey,
                           ),
-                          Text("New York City (JFK)",
+                          Text(InheritedFlightListing.of(context).toLocation,
                               style: TextStyle(
                                   fontSize: 16.0, fontWeight: FontWeight.bold))
                         ],
@@ -162,6 +176,7 @@ class FlightListCard extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20.0),
                       ),
+                      SizedBox(width: 8.0,),
                       Text(
                         "(${formatCurrency.format(9999)})",
                         style: TextStyle(
@@ -217,7 +232,7 @@ class FlightDetailChip extends StatelessWidget {
     return RawChip(
       label: Text(label),
       labelStyle: TextStyle(color: Colors.black, fontSize: 14.0),
-      backgroundColor: chipBackgroundColor,
+      backgroundColor: Colors.grey.withOpacity(0.3),
       avatar: Icon(
         iconData,
         size: 14.0,

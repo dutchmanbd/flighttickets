@@ -17,9 +17,13 @@ var firstColor = Color(0xFFF47D15);
 var secondColor = Color(0xFFEF772C);
 var clipLinearGradient = LinearGradient(colors: [firstColor, secondColor]);
 
+
+
 var appTheme = ThemeData(primaryColor: Color(0xFFF3791A), fontFamily: 'Oxygen');
 
 var locations = ['Boston (BOS)', 'New York City (JFK)'];
+
+final textEditingController = TextEditingController(text: locations[1]);
 
 const dropDownLabelStyle = TextStyle(color: Colors.white, fontSize: 16.0);
 const dropDownMenuItemStyle = TextStyle(color: Colors.black, fontSize: 16.0);
@@ -131,7 +135,7 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
                     elevation: 5.0,
                     borderRadius: BorderRadius.circular(30.0),
                     child: TextField(
-                      controller: TextEditingController(text: locations[1]),
+                      controller: textEditingController,
                       cursorColor: appTheme.primaryColor,
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -144,7 +148,11 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
                             child: InkWell(
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => FlightListing()
+                                  builder: (context) => InheritedFlightListing(
+                                    fromLocation: locations[selectedLocationIndex],
+                                    toLocation: textEditingController.text,
+                                    child: FlightListing(),
+                                  )
                                 ));
                               },
                               child: Icon(
